@@ -1,0 +1,333 @@
+<root root=true> = <lines count=2000>
+<interestingint> = 32768
+<interestingint> = 65535
+<interestingint> = 65536
+<interestingint> = 1073741824
+<interestingint> = 536870912
+<interestingint> = 268435456
+<interestingint> = 397040.68110361835
+<interestingint> = 4294967295
+<interestingint> = 2147483648
+<interestingint> = 2147483647
+<interestingint> = 2147483647
+<interestingint> = -2147483648
+<interestingint> = -1073741824
+<interestingint> = 2234845371.1607285
+<interestingint> = -32769
+<interestingint> = 3827314817.93361
+<interestingint> = 370130.14307152707
+<interestingint> = 3982445413.7308226
+
+<interestingint2> = 1
+<interestingint2> = -1
+<interestingint2> = 2
+<interestingint2> = -2
+<interestingint2> = 0
+<interestingint2> = -0
+
+<oscTypes> = 28
+<oscTypes> = 79
+<oscTypes> = 71
+<oscTypes> = 157
+<oscTypes> = 69
+
+<bufLength> = 2200
+<bufLength> = 2048
+<bufLength> = 4498
+<bufLength> = 4096
+
+
+<interestingint1> = 31
+<interestingint1> = 2
+<interestingint1> = 441000
+<interestingint1> = 44100
+<interestingint1> = 16
+<interestingint1> = 1
+<interestingint1> = 0
+<interestingint1> = -1
+<interestingint1> = -0
+<interestingint1> = 2
+<interestingint1> = 19
+<interestingint1> = 65535
+<interestingint1> = -4096
+<interestingint1> = 1073741824
+<interestingint1> = 4096
+<interestingint1> = 100
+<interestingint1> = 397040.68110361835
+<interestingint1> = 4294967295
+<interestingint1> = 50
+<interestingint1> = 2147483647
+<interestingint1> = -2147483648
+<interestingint1> = -1073741824
+<interestingint1> = 1000
+<interestingint1> = 2048
+<interestingint1> = 512
+
+<minusValues> = -7.99396038134
+<minusValues> = -6.99396038134
+<minusValues> = -5.99396038134
+<minusValues> = -4.91396038134
+<minusValues> = -3.99396038134
+<minusValues> = -2.99356038134
+<minusValues> = -1.09396038134
+<minusValues> = -0.09396038134
+
+<timingEvents> = 2
+<timingEvents> = 3
+<timingEvents> = 4
+
+
+<lowInts> = 1.5582243
+<lowInts> = 0.582286931543
+<lowInts> = 1.7116415548522
+<lowInts> = 0.1233211321
+<lowInts> = 1.6549046495368697
+<lowInts> = 2.5582243
+<lowInts> = 1.3096153221362858
+
+
+
+<newaudio_processing_event> = audio_processing_event
+
+!varformat fuzzvar%05d
+!lineguard try { <line> } catch(e) { }
+
+!begin lines
+
+<new element> = "playback"
+<new element> = {latencyHint : <element>, sampleRate : <interestingint>};
+<new element> = {latencyHint : "playback", sampleRate : 746656.4483630623};
+
+!end lines
+
+
+
+!varformat fuzzvar%05d
+!lineguard try { <line> } catch(e) {}
+
+!begin lines
+<new elAudioContext0> = {numberOfChannels : 17, length : 52, sampleRate : 487320.43775096524};
+!end lines
+
+
+!varformat fuzzvar%05d
+!lineguard try { <line> } catch(e) {}
+
+!begin lines
+<new elAudioContext> = new AudioContext();
+<new elOfflineAudioContext> = new OfflineAudioContext(<elAudioContext0>);
+<new elOfflineAudioContext> = new OfflineAudioContext(<interestingint1>,<interestingint1>,<interestingint1>);
+
+<new elAudioContext00> = {offset : <elAudioContext>.listener.positionX.maxValue}; 
+<new elAudioContext000> = {numberOfChannels : <interestingint1>, length : <interestingint>, sampleRate : <interestingint>};
+
+<new elOscillatorNode> = <elAudioContext>.createOscillator();
+<new elOscillatorNode> = <elOfflineAudioContext>.createOscillator();
+<elOscillatorNode>.type = "sine";
+<elOscillatorNode>.type = "sawtooth";
+<elOscillatorNode>.type = "square";
+<elOscillatorNode>.connect(<elAudioContext>.destination);
+<elOscillatorNode>.start(<elAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elOfflineAudioContext>.destination);
+<elOscillatorNode>.start(<elOfflineAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elAudioContext>.destination);
+<elOscillatorNode>.start(<elAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elOfflineAudioContext>.destination);
+<elOscillatorNode>.start(<elOfflineAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elAudioContext>.destination);
+<elOscillatorNode>.start(<elAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elOfflineAudioContext>.destination);
+<elOscillatorNode>.start(<elOfflineAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elAudioContext>.destination);
+<elOscillatorNode>.start(<elAudioContext>.currentTime);
+<elOscillatorNode>.connect(<elOfflineAudioContext>.destination);
+<elOscillatorNode>.start(<elOfflineAudioContext>.currentTime);
+
+<new elCreateAnalyser> = <elOfflineAudioContext>.createAnalyser();
+
+<new elCreateGain> = <elAudioContext>.createGain();
+
+<new elCreateConvolver> = <elAudioContext>.destination.context.createConvolver();
+
+<new elLinearRampToValueAtTimeFromConvolver> = <elCreateConvolver>.context.listener.positionZ.linearRampToValueAtTime(<lowInts>, <lowInts>);
+
+<new elOscillatorFromConvolver> = <elCreateConvolver>.context.createOscillator();
+
+<new bufferSourceFromConvolver> = <elCreateConvolver>.context.createBufferSource();
+
+<new createDelayFromConvolver> = <elCreateConvolver>.context.createDelay(<lowInts>);
+
+<new elScriptProcessorNode> = <elOfflineAudioContext>.createScriptProcessor(<interestingint1>);
+
+<new elOnAudioProcess> = function (audio_processing_event) { <elCreateDelay>.delayTime.exponentialRampToValueAtTime(<interestingint2>, <interestingint2>); };
+
+<new elCreateDelay> = <elOfflineAudioContext>.createDelay(<lowInts>);
+
+<new elOnAudioProcess> = function (audio_processing_event) { <elCreateDelay>.delayTime.exponentialRampToValueAtTime(<interestingint2>, <interestingint2>); };
+
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
+
+<elCreateDelay>.delayTime.automationRate = "k-rate";
+
+<elScriptProcessorNode>.connect(<elCreateDelay>);
+
+<elCreateDelay>.delayTime.setValueCurveAtTime([<interestingint2>, <interestingint2>], <interestingint2>, <interestingint2>);
+
+<new elBufferSource> = <elOfflineAudioContext>.createBufferSource();
+<new elPannerNode> = new PannerNode(<elAudioContext>); 
+<new elPannerNode> = new PannerNode(<elOfflineAudioContext>); 
+gc();
+
+<new elCreateAnalyserFromGain> = <elCreateGain>.context.createAnalyser();
+<elCreateAnalyserFromGain>.fftSize = <interestingint1>;
+<elCreateAnalyserFromGain>.minDecibels = <minusValues>
+
+<elCreateAnalyserFromGain>.context.onstatechange = <elAudioContext>.oncomplete;
+<elCreateAnalyserFromGain>.context.onstatechange = <elOfflineAudioContext>.oncomplete;
+
+<elBufferSource>.start();
+
+<elOscillatorNode>.setType = <oscTypes> ;
+
+<elCreateDelay>.connect(<elOfflineAudioContext>.destination);
+
+gc();
+
+<elCreateConvolver>.normalize=false;
+<elCreateConvolver>.normalize=true;
+
+<new elCreateBiquadFilter> = <elOfflineAudioContext>.createBiquadFilter();
+<new elCreateBiquadFilter> = <elAudioContext>.createBiquadFilter();
+<new clCreatePannerFromBiquad> = <elCreateBiquadFilter>.context.createPanner();
+
+<elOfflineAudioContext>.startRendering();
+<elAudioContext>.startRendering();
+
+<elBufferSource>.loopStart = <interestingint2>
+<new elUint8Array> = new Uint8Array(<bufLength>); 
+
+<new elCreateChannelSplitter> = <elOfflineAudioContext>.createChannelSplitter();
+<new elCreateChannelSplitter> = <elAudioContext>.createChannelSplitter();
+
+<new elCreateChannelMerger> = <elAudioContext>.createChannelMerger(<interestingint1>);
+<new elCreateChannelMerger> = <elOfflineAudioContext>.createChannelMerger(<interestingint1>);
+
+<new elScriptProcessorNode1> = <elAudioContext>.createScriptProcessor(<interestingint1>,<interestingint1>,<interestingint1>);
+
+<new elBiquadFilterNode> =  new BiquadFilterNode(<elAudioContext>);
+
+<new varProp1> = {maxDelayTime : <lowInts>, delayTime : <lowInts>, channelCount : <interestingint1>, channelCountMode : "clamped-max", channelInterpretation : "speakers"};
+
+<elPannerNode>.setPosition(<varProp1>.maxDelayTime, <elUint8Array>.BYTES_PER_ELEMENT, <elBiquadFilterNode>.frequency.defaultValue);
+
+!end lines
+
+
+
+!varformat fuzzvar%05d
+!lineguard try { <line> } catch(e) {}
+
+!begin lines
+
+<elBufferSource>.loop=True;
+<new element2> = <elAudioContext>.destination();
+
+<elBufferSource>.channelCountMode="clamped-max";
+<elBufferSource>.channelCountMode="explicit";
+<elCreateConvolver>.channelCountMode="explicit";
+<elCreateConvolver>.channelInterpretation="discrete";
+<elCreateConvolver>.channelCountMode="clamped-max";
+<elAudioContext>.destination.context.createDynamicsCompressor();
+<elCreateBiquadFilter>.channelCount=<interestingint1>;
+<elBufferSource>.connect(<elAudioContext>.destination);
+<elBufferSource>.connect(<elOfflineAudioContext>.destination);
+
+<new elChannelSplitterNode> = new ChannelSplitterNode(<elBiquadFilterNode>.context); 
+
+<elChannelSplitterNode>.connect(<elBiquadFilterNode>.context.listener.forwardX, 0);
+
+<elChannelSplitterNode>.disconnect(<elAudioContext>.listener.forwardX);
+
+<new elChannelMergerNode> = new ChannelMergerNode(<elChannelSplitterNode>.context);
+
+
+<new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=771; while(length--){test.push(Math.sin(length))};   return test}()))
+<new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=643; while(length--){test.push(Math.sin(length))};   return test}()))
+setInterval(function(){ <elAudioContext>.destination.context.createDynamicsCompressor(); <elBufferSource>.connect(<elOfflineAudioContext>.destination);  <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); <elCreateConvolver>.channelInterpretation="discrete"; },<timingEvents>)
+<new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=234; while(length--){test.push(Math.sin(length))};   return test}()))
+<new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=1400; while(length--){test.push(Math.sin(length))};   return test}()))
+<elAudioObject>.play();
+<elAudioObject>.play();
+<elCreateConvolver>.channelCount=<interestingint1>;
+
+<elScriptProcessorNode1>.connect(<elAudioContext>.destination);
+<elScriptProcessorNode1>.connect(<elOfflineAudioContext>.destination);
+
+<elCreateBiquadFilter>.gain.setValueAtTime(<interestingint1>,<lowInts>);
+
+<elBufferSource>.loop=false;
+
+<elCreateBiquadFilter>.channelInterpretation="discrete";
+<elCreateBiquadFilter>.detune.value=<lowInts>;
+<elCreateBiquadFilter>.frequency.setTargetAtTime(<minusValues>,<lowInts>,<lowInts>);
+<elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); 
+<elAudioObject>.play();
+<elAudioObject>.autoplay=false;
+
+for(x=0;x<7;x++){ <elAudioContext>.destination.context.createDynamicsCompressor(); <elBufferSource>.connect(<elOfflineAudioContext>.destination);  <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); <elCreateConvolver>.channelInterpretation="discrete";  }
+
+<elAudioObject>.autoplay=true;
+<elCreateBiquadFilter>.connect(<elCreateChannelMerger>);
+<elBufferSource>.start();
+<elAudioObject>.loop=true;
+for(x=0;x<7;x++){ <elAudioContext>.destination.context.createDynamicsCompressor(); <elBufferSource>.connect(<elOfflineAudioContext>.destination);  <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); <elCreateConvolver>.channelInterpretation="discrete";  }
+<elAudioObject>.loop=false;
+
+<new varProp2> = {type : <elBiquadFilterNode>.type, Q : 1, detune : -15773.260551181796, frequency : 14563.409160141242, gain : -1.543242646422267e+38, channelCount : 2, channelCountMode : "max", channelInterpretation : "speakers"};
+
+<new elWaveShaperNode> = new WaveShaperNode(<elOfflineAudioContext>.destination.context);
+
+<elCreateAnalyser>.getFloatTimeDomainData(<elWaveShaperNode>.curve);
+
+<elCreateAnalyser>.maxDecibels = <lowInts>
+
+<elBiquadFilterNode>.type = <varProp2>.type;
+
+<elCreateAnalyser>.fftSize = <bufLength>;
+<elPannerNode>.refDistance = <elAudioContext>.destination.channelCount; 
+<elPannerNode>.refDistance = <elOfflineAudioContext>.destination.channelCount; 
+<new elCreateAnalyserBufferLength> = <elCreateAnalyser>.frequencyBinCount;
+
+<new dataArray> = new Uint8Array(<elCreateAnalyserBufferLength>);
+
+<elCreateAnalyser>.getByteTimeDomainData(<dataArray>);
+
+
+<elCreateAnalyser>.connect(<elOfflineAudioContext>.destination);
+
+
+
+
+
+
+
+!end lines
+
+!varformat fuzzvar%05d
+!lineguard try { <line> } catch(e) {}
+
+!begin lines
+<new element2-3> = <elAudioContext>.createStereoPanner();
+!end lines
+
+
+
+
+
+
+
+
+
+
+
+
