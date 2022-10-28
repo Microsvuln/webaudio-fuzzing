@@ -1,4 +1,4 @@
-<root root=true> = <lines count=2000>
+<root root=true> = <lines count=50>
 <interestingint> = 32768
 <interestingint> = 65535
 <interestingint> = 65536
@@ -31,10 +31,13 @@
 <oscTypes> = 157
 <oscTypes> = 69
 
+<bufLength> = 2
+<bufLength> = 22
 <bufLength> = 2200
 <bufLength> = 2048
 <bufLength> = 4498
 <bufLength> = 4096
+<bufLength> = 8523
 
 
 <interestingint1> = 31
@@ -70,7 +73,10 @@
 <minusValues> = -3.99396038134
 <minusValues> = -2.99356038134
 <minusValues> = -1.09396038134
+<minusValues> = -3.71584527
 <minusValues> = -0.09396038134
+<minusValues> = -2.7580172
+
 
 <timingEvents> = 2
 <timingEvents> = 3
@@ -84,39 +90,24 @@
 <lowInts> = 1.6549046495368697
 <lowInts> = 2.5582243
 <lowInts> = 1.3096153221362858
-
+<lowints> = 1.771389681
 
 
 <newaudio_processing_event> = audio_processing_event
 
 !varformat fuzzvar%05d
 !lineguard try { <line> } catch(e) { }
-
 !begin lines
 
 <new element> = "playback"
 <new element> = {latencyHint : <element>, sampleRate : <interestingint>};
 <new element> = {latencyHint : "playback", sampleRate : 746656.4483630623};
 
-!end lines
-
-
-
-!varformat fuzzvar%05d
-!lineguard try { <line> } catch(e) {}
-
-!begin lines
 <new elAudioContext0> = {numberOfChannels : 17, length : 52, sampleRate : 487320.43775096524};
-!end lines
-
-
-!varformat fuzzvar%05d
-!lineguard try { <line> } catch(e) {}
-
-!begin lines
 <new elAudioContext> = new AudioContext();
 <new elOfflineAudioContext> = new OfflineAudioContext(<elAudioContext0>);
 <new elOfflineAudioContext> = new OfflineAudioContext(<interestingint1>,<interestingint1>,<interestingint1>);
+<new elOfflineAudioContext> = new OfflineAudioContext(<interestingint1>,<interestingint1>*<oscTypes>,<interestingint1>);
 
 <new elAudioContext00> = {offset : <elAudioContext>.listener.positionX.maxValue}; 
 <new elAudioContext000> = {numberOfChannels : <interestingint1>, length : <interestingint>, sampleRate : <interestingint>};
@@ -149,6 +140,9 @@
 
 <new elCreateConvolver> = <elAudioContext>.destination.context.createConvolver();
 
+<new elCreateBuffer> = <elAudioContext>.createBuffer(<bufLength>, <bufLength>, <elAudioContext>.sampleRate);
+<new elCreateBuffer> = <elOfflineAudioContext>.createBuffer(<bufLength>, <bufLength>, <elAudioContext>.sampleRate);
+
 <new elLinearRampToValueAtTimeFromConvolver> = <elCreateConvolver>.context.listener.positionZ.linearRampToValueAtTime(<lowInts>, <lowInts>);
 
 <new elOscillatorFromConvolver> = <elCreateConvolver>.context.createOscillator();
@@ -167,12 +161,16 @@
 
 <elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
 
+<new elCreateBuffer> = <elAudioContext>.createBuffer(<bufLength>, <bufLength>, <elAudioContext>.sampleRate);
+<new elCreateBuffer> = <elOfflineAudioContext>.createBuffer(<bufLength>, <bufLength>, <elAudioContext>.sampleRate);
+
 <elCreateDelay>.delayTime.automationRate = "k-rate";
 
 <elScriptProcessorNode>.connect(<elCreateDelay>);
 
 <elCreateDelay>.delayTime.setValueCurveAtTime([<interestingint2>, <interestingint2>], <interestingint2>, <interestingint2>);
-
+<new elBufferData>   = <elCreateBuffer>.getChannelData(0);
+<new elBufferData>   = <elCreateBuffer>.getChannelData(0);
 <new elBufferSource> = <elOfflineAudioContext>.createBufferSource();
 <new elPannerNode> = new PannerNode(<elAudioContext>); 
 <new elPannerNode> = new PannerNode(<elOfflineAudioContext>); 
@@ -186,148 +184,182 @@ gc();
 <elCreateAnalyserFromGain>.context.onstatechange = <elOfflineAudioContext>.oncomplete;
 
 <elBufferSource>.start();
-
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
 <elOscillatorNode>.setType = <oscTypes> ;
 
 <elCreateDelay>.connect(<elOfflineAudioContext>.destination);
 
 gc();
-
+<new elChannelSplitterNodefromMediaStream> = new ChannelSplitterNode(<elcreateMediaStreamDestination>.context);
 <elCreateConvolver>.normalize=false;
 <elCreateConvolver>.normalize=true;
-
+<elAudioContext>.resume();
 <new elCreateBiquadFilter> = <elOfflineAudioContext>.createBiquadFilter();
 <new elCreateBiquadFilter> = <elAudioContext>.createBiquadFilter();
 <new clCreatePannerFromBiquad> = <elCreateBiquadFilter>.context.createPanner();
 
 <elOfflineAudioContext>.startRendering();
 <elAudioContext>.startRendering();
-
+<new elProp2> = {pan : 0.061023226858551105, channelCount : 1, channelCountMode : "clamped-max", channelInterpretation : "speakers"};
 <elBufferSource>.loopStart = <interestingint2>
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
 <new elUint8Array> = new Uint8Array(<bufLength>); 
-
+<elOfflineAudioContext>.resume();
 <new elCreateChannelSplitter> = <elOfflineAudioContext>.createChannelSplitter();
 <new elCreateChannelSplitter> = <elAudioContext>.createChannelSplitter();
-
+<elPannerNode>.maxDistance = <bufLength>
 <new elCreateChannelMerger> = <elAudioContext>.createChannelMerger(<interestingint1>);
-<new elCreateChannelMerger> = <elOfflineAudioContext>.createChannelMerger(<interestingint1>);
 
+<new elCreateChannelMerger> = <elOfflineAudioContext>.createChannelMerger(<interestingint1>);
+<new elcreateMediaStreamDestination> = <elAudioContext>.createMediaStreamDestination(); 
 <new elScriptProcessorNode1> = <elAudioContext>.createScriptProcessor(<interestingint1>,<interestingint1>,<interestingint1>);
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
 
 <new elBiquadFilterNode> =  new BiquadFilterNode(<elAudioContext>);
+freeMemory();
+gc();
+<new elFloat32Array> = new Float32Array(<bufLength>);
+<new elFloat32Array> = new Float32Array(<bufLength>);
 
 <new varProp1> = {maxDelayTime : <lowInts>, delayTime : <lowInts>, channelCount : <interestingint1>, channelCountMode : "clamped-max", channelInterpretation : "speakers"};
 
 <elPannerNode>.setPosition(<varProp1>.maxDelayTime, <elUint8Array>.BYTES_PER_ELEMENT, <elBiquadFilterNode>.frequency.defaultValue);
+<new elMediaStreamAudioDestinationNode> = new MediaStreamAudioDestinationNode(<elAudioContext>);
+<new elMediaStreamAudioDestinationNode> = new MediaStreamAudioDestinationNode(<elAudioContext>,<elProp2>);
+<elOfflineAudioContext>.startRendering();
+<elAudioContext>.startRendering();
+<elPannerNode>.distanceModel = "exponential";
 
-!end lines
+<new elProp3> =  {name : <elInt32Array>.name, defaultValue : 0, minValue : <elMediaStreamAudioDestinationNode>.context.listener.positionX.maxValue, maxValue : 3.4028235e38, automationRate : "a-rate"};
 
+for(var i=0;i <lt> <bufLength> ; i++) { <elFloat32Array>[i] = 0x41; } 
 
-
-!varformat fuzzvar%05d
-!lineguard try { <line> } catch(e) {}
-
-!begin lines
+<new elCreateMediaStreamSource> = <elAudioContext>.createMediaStreamSource(<elMediaStreamAudioDestinationNode>.stream);
 
 <elBufferSource>.loop=True;
 <new element2> = <elAudioContext>.destination();
-
+<new elAudioBufferSourceNode> = new AudioBufferSourceNode(<elAudioContext>);
 <elBufferSource>.channelCountMode="clamped-max";
 <elBufferSource>.channelCountMode="explicit";
 <elCreateConvolver>.channelCountMode="explicit";
 <elCreateConvolver>.channelInterpretation="discrete";
+<new elProp4> = {buffer : <elAudioBufferSourceNode>.buffer, disableNormalization : true, channelCount : 1, channelCountMode : "explicit", channelInterpretation : "speakers"};
+<new elCreateWaveShaperFromCreateMedia> = <elCreateMediaStreamSource>.context.createWaveShaper();
 <elCreateConvolver>.channelCountMode="clamped-max";
 <elAudioContext>.destination.context.createDynamicsCompressor();
+
+<elProp4>.buffer.copyToChannel(<elCreateWaveShaperFromCreateMedia>.curve, <elProp4>.buffer.numberOfChannels - 1, <elMediaStreamAudioDestinationNode>.context.listener.positionX.minValue);
+
 <elCreateBiquadFilter>.channelCount=<interestingint1>;
+freeMemory();
 <elBufferSource>.connect(<elAudioContext>.destination);
 <elBufferSource>.connect(<elOfflineAudioContext>.destination);
 
 <new elChannelSplitterNode> = new ChannelSplitterNode(<elBiquadFilterNode>.context); 
-
+<new elCreateIRRFilter> = <elOfflineAudioContext>.createIIRFilter(<elFloat32Array>,<elFloat32Array>.reverse());
+<new elCreateIRRFilter> = <elOfflineAudioContext>.createIIRFilter(<elFloat32Array>.reverse(),<elFloat32Array>.reverse());
+<new elCreateIRRFilter> = <elOfflineAudioContext>.createIIRFilter(<elFloat32Array>,<elFloat32Array>);
+<new elCreateIRRFilter> = <elOfflineAudioContext>.createIIRFilter(<elFloat32Array>.reverse(),<elFloat32Array>);
 <elChannelSplitterNode>.connect(<elBiquadFilterNode>.context.listener.forwardX, 0);
 
 <elChannelSplitterNode>.disconnect(<elAudioContext>.listener.forwardX);
-
+<new elGainNode> = new GainNode(<elOscillatorNode>.context);
 <new elChannelMergerNode> = new ChannelMergerNode(<elChannelSplitterNode>.context);
 
+<new elCreateWaveShaper> = <elAudioContext>.createWaveShaper();
 
 <new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=771; while(length--){test.push(Math.sin(length))};   return test}()))
 <new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=643; while(length--){test.push(Math.sin(length))};   return test}()))
-setInterval(function(){ <elAudioContext>.destination.context.createDynamicsCompressor(); <elBufferSource>.connect(<elOfflineAudioContext>.destination);  <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); <elCreateConvolver>.channelInterpretation="discrete"; },<timingEvents>)
+
 <new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=234; while(length--){test.push(Math.sin(length))};   return test}()))
 <new elAudioObject> = new Audio("data:audio/wav;base64,UklGRgAAAABXQVZFZm10IBAAAAABAAEAwF0AAIC7AAACABAAZGF0YSBO"+btoa(function(){var test=[]; var length=1400; while(length--){test.push(Math.sin(length))};   return test}()))
 <elAudioObject>.play();
 <elAudioObject>.play();
+<elPannerNode>.connect(<elCreateWaveShaper>);
+<elCreateWaveShaper>.oversample = '2x';
 <elCreateConvolver>.channelCount=<interestingint1>;
-
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
 <elScriptProcessorNode1>.connect(<elAudioContext>.destination);
 <elScriptProcessorNode1>.connect(<elOfflineAudioContext>.destination);
+<new elGainNodeConnectToMediaDest> = <elGainNode>.connect(elcreateMediaStreamDestination, 0, -0); 
+<new elOscConnectToChannelSplitterNode> = <elOscillatorNode>.connect(<elChannelSplitterNode>, -0, 0);
+<new elInt32Array> = new Uint32Array(<bufLength>);
+<new elCreateDynamicsCompressor> =  <elDynamicsCompressorNode>.context.createDynamicsCompressor();
+<new elVarFromArray> = <elInt32Array>.at(<bufLength>);
+<new elDelayNode> = new DelayNode(<elOscConnectToChannelSplitterNode>.context);
 
+
+
+<elDynamicsCompressorNode>.context.listener.setPosition(<lowInts>, <minusValues>, <minusValues>);
 <elCreateBiquadFilter>.gain.setValueAtTime(<interestingint1>,<lowInts>);
 
-<elBufferSource>.loop=false;
+<elOfflineAudioContext>.listener.positionZ.automationRate = <elcreateMediaStreamDestination>.context.listener.positionX.automationRate;
 
+<elBufferSource>.loop=false;
+<elPannerNode>.refDistance = <interestingint1>
 <elCreateBiquadFilter>.channelInterpretation="discrete";
 <elCreateBiquadFilter>.detune.value=<lowInts>;
 <elCreateBiquadFilter>.frequency.setTargetAtTime(<minusValues>,<lowInts>,<lowInts>);
 <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); 
 <elAudioObject>.play();
 <elAudioObject>.autoplay=false;
-
-for(x=0;x<7;x++){ <elAudioContext>.destination.context.createDynamicsCompressor(); <elBufferSource>.connect(<elOfflineAudioContext>.destination);  <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); <elCreateConvolver>.channelInterpretation="discrete";  }
-
+<new elMediaStreamVar> = {mediaStream : <elcreateMediaStreamDestination>.stream};
+<new elCreateDynamicCompressorFromIRRFilter> = <elCreateIRRFilter>.context.createDynamicsCompressor();
+<new elCreateGainFromIRRFilter> = <elCreateIRRFilter>.context.createGain();
+<elScriptProcessorNode1>.disconnect(<elCreateWaveShaper>, 2, 1, 0);
+<elOfflineAudioContext>.oncomplete = <elCreateIRRFilter>.context.onstatechange;
 <elAudioObject>.autoplay=true;
 <elCreateBiquadFilter>.connect(<elCreateChannelMerger>);
 <elBufferSource>.start();
+<elPannerNode>.panningModel = "equalpower";
 <elAudioObject>.loop=true;
-for(x=0;x<7;x++){ <elAudioContext>.destination.context.createDynamicsCompressor(); <elBufferSource>.connect(<elOfflineAudioContext>.destination);  <elCreateBiquadFilter>.connect(<elOscillatorNode>,<interestingint1>,<interestingint1>); <elCreateConvolver>.channelInterpretation="discrete";  }
+<new elexponentialRampToValueAtTimeFromIRRFilter> = <elCreateIRRFilter>.context.listener.forwardX.exponentialRampToValueAtTime(<lowInts>, <lowInts>);
 <elAudioObject>.loop=false;
-
+for(var i=0;i <lt> <bufLength> ; i++) { <elFloat32Array>[i] = 0x42; } 
+<new elFloat32Array> = new Float32Array(<bufLength>);
+<new elFloat32Array> = new Float32Array(<bufLength>);
+<elPannerNode>.rolloffFactor = <lowInts>
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
 <new varProp2> = {type : <elBiquadFilterNode>.type, Q : 1, detune : -15773.260551181796, frequency : 14563.409160141242, gain : -1.543242646422267e+38, channelCount : 2, channelCountMode : "max", channelInterpretation : "speakers"};
-
 <new elWaveShaperNode> = new WaveShaperNode(<elOfflineAudioContext>.destination.context);
-
+<elOscillatorNode>.disconnect(<elAudioContext>.listener.forwardY, -0);
 <elCreateAnalyser>.getFloatTimeDomainData(<elWaveShaperNode>.curve);
-
+<elScriptProcessorNode1>.disconnect(<elCreateWaveShaper>, 2, 1, 0);
+<new elDynamicsCompressorNode> = new DynamicsCompressorNode(<elDelayNode>.context);
+<elPannerNode>.at(-261230);
+<elCreateMediaStreamSource>.channelCountMode = "clamped-max";
 <elCreateAnalyser>.maxDecibels = <lowInts>
-
+<new elNewOscillatorConnect> = <elOscillatorNode>.connect(<elcreateMediaStreamDestination>.context.destination, -0, -0);
 <elBiquadFilterNode>.type = <varProp2>.type;
-
+<elPannerNode>.setOrientation(-0, <elWaveShaperNode>.context.listener.positionX.value, -0);
+<elDelayNode>.disconnect(2);
+<new elNewGainNodeFromIRRFilter> = new GainNode(<elCreateIRRFilter>.context);
 <elCreateAnalyser>.fftSize = <bufLength>;
 <elPannerNode>.refDistance = <elAudioContext>.destination.channelCount; 
-<elPannerNode>.refDistance = <elOfflineAudioContext>.destination.channelCount; 
+<elPannerNode>.refDistance = <elOfflineAudioContext>.destination.channelCount;
+<elDelayNode>.disconnect(<interestingint2>);
 <new elCreateAnalyserBufferLength> = <elCreateAnalyser>.frequencyBinCount;
-
+<new elCreateBiquadFilterFromIRRFilter> = <elCreateIRRFilter>.context.createBiquadFilter(); 
 <new dataArray> = new Uint8Array(<elCreateAnalyserBufferLength>);
-
+<elPannerNode>.setOrientation(<elVarFromArray>, <elcreateMediaStreamDestination>.channelCount, <lowInts>);
+<elAudioObject>.play();
+<elAudioObject>.play();
+<elScriptProcessorNode>.addEventListener("audioprocess", <elOnAudioProcess>);
+<elChannelMergerNode>.context.listener.upX.cancelAndHoldAtTime(1.176013708);
+<elcreateMediaStreamDestination>.channelCountMode = "max";
+<elAudioContext>.suspend();
+<elOfflineAudioContext>.suspend();
+<new elBufferSource> = <elDelayNode>.context.createBufferSource();
+<elPannerNode>.panningModel = "equalpower";
 <elCreateAnalyser>.getByteTimeDomainData(<dataArray>);
-
-
+<elScriptProcessorNode1>.disconnect(<elCreateWaveShaper>, 2, 1, 0);
+freeMemory();
 <elCreateAnalyser>.connect(<elOfflineAudioContext>.destination);
-
-
-
-
-
-
+<elAudioObject>.play();
+<elCreateMediaStreamSource>.context.listener.forwardX.automationRate = "a-rate";
+<elAudioObject>.play();
+for(var i=0;i <lt> <bufLength> ; i++) { <elFloat32Array>[i] = 0x42; } 
+<elAudioObject>.play();
+for(var i=0;i <lt> <bufLength> ; i++) { <elFloat32Array>[i] = 0x41; } 
 
 !end lines
-
-!varformat fuzzvar%05d
-!lineguard try { <line> } catch(e) {}
-
-!begin lines
-<new element2-3> = <elAudioContext>.createStereoPanner();
-!end lines
-
-
-
-
-
-
-
-
-
-
-
-
